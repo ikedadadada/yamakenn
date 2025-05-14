@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <title>1D Fourier</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="ss.css">
+    </head>
+
+
+    <body>
+        <h2>一次元フーリエ変換</h2>
+        
+        <canvas id="fourierChart"></canvas>
+      
+        <input id="Input" type="number" placeholder="数値を入力">
+        <button onclick="processInput()">計算実行</button>
+        <p>出力結果：<span id="output"></span></p>
+        <canvas id="fourierChart"></canvas>
+
+        <script>
+            function processInput(){
+                const i = parseFloat(document.getElementById("Input").value);
+                const result = i*2
+                document.getElementById("output").textContent = result;
+            }
+        </script>
+    </body>
+    
+</html>
