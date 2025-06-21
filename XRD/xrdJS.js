@@ -1,34 +1,35 @@
-let chart;
-let selectedFiles = [];
+let chart; //chart 定義
+let selectedFiles = []; //空のファイルボックスを作成
 
-document.addEventListener("DOMContentLoaded", () => {
-  const fileInput = document.getElementById("fileInput");
-  const downloadBtn = document.getElementById("downloadBtn");
+document.addEventListener("DOMContentLoaded", () => { //ページのHTML構造（DOM）が読み込まれたら、指定した処理を実行する
+  const fileInput = document.getElementById("fileInput"); // HTMLの中からid"fileInput"の要素を取得し定数fileInputに代入
+  const downloadBtn = document.getElementById("downloadBtn");//上と同じ
   const dropZone = document.getElementById("dropZone");
   const offsetInput = document.getElementById("offsetInput");
 
   //ファイル選択
-  fileInput.addEventListener("change", (e) => {
-    selectedFiles = selectedFiles.concat([...e.target.files]);
-    const list = document.getElementById("fileList");
-    list.innerHTML = "";
+  fileInput.addEventListener("change", (e) => { //fileInputの値が変化した時に処理を実行 eのおかげでどのファイルが選ばれたかなどの情報を取得できる
+    selectedFiles = selectedFiles.concat([...e.target.files]);  //e.target.files に含まれる選択ファイルたちを selectedFiles に追加していく.
+    //スプレッド構文[...]を使って、FileListを普通の配列に変換している。concat() は配列をつなげて新しい配列を返すメソッド
+    const list = document.getElementById("fileList"); //HTMLの中からid"fileList"の要素を取得し定数として扱う
+    list.innerHTML = ""; //list の中をリセット
 
-    selectedFiles.forEach((file, i) => {
-      const li = document.createElement("li");
-      li.textContent = file.name;
-      li.dataset.index = i;
-      li.style.cursor = "move";
-      li.style.padding = "4px";
-      li.style.borderBottom = "1px solid #ddd"
-      list.appendChild(li);
+    selectedFiles.forEach((file, i) => { //selectedfilesの全ての要素に関数を実行する
+      const li = document.createElement("li"); //li要素をHTMLに作成
+      li.textContent = file.name; //ファイル名をテキストコンテンツとして表示
+      li.dataset.index = i; //HTMLの data-* 属性を設定します
+      li.style.cursor = "move"; //カーソルを「ドラッグできる手のマーク」にする
+      li.style.padding = "4px"; //内側の余白を追加して見やすく
+      li.style.borderBottom = "1px solid #ddd" //下に線を引く
+      list.appendChild(li); //DOMメソッドのひとつで、指定した要素を「子要素として末尾に追加」
     });
-    Sortable.create(list);
+    Sortable.create(list); //list 内の <li> 要素を ドラッグ＆ドロップで並び替え可能に
   });
 
-  document.getElementById("renderBtn").addEventListener("click", () => {
-    const listItems = [...document.querySelectorAll("#fileList li")];
-    const reordered = listItems.map(li => selectedFiles[li.dataset.index]);
-    handleFiles(reordered);
+  document.getElementById("renderBtn").addEventListener("click", () => {  //HTMLの中からid"renderBtn"の要素を取得し、クリックされた時の処理を設定する
+    const listItems = [...document.querySelectorAll("#fileList li")]; //定数listItemsにfileListのli要素を全て取得し、純粋な配列に変換し、格納する
+    const reordered = listItems.map(li => selectedFiles[li.dataset.index]); //定数reorderedにlistItemsのli要素から<li data-index="X"> の X の部分を取り出しファイルを並べ替える
+    handleFiles(reordered);//ファイルを表示したりする関数にreorderedを入れる
   });
   // 🔄 共通読み込み関数
   function handleFiles(fileList) {

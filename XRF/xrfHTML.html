@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>酸化物 → 元素モル比・質量比計算ツール</title>
+  <link rel="stylesheet" href="xrfCSS.css">
+</head>
+<body>
+  <h2>酸化物 → 元素モル比・質量比計算ツール</h2>
+
+  <textarea id="pasteArea" placeholder="Excelから貼り付け（化学式\tモル%）"></textarea>
+  <button onclick="handlePasteInput()">貼り付けを反映</button>
+
+  <table id="inputTable">
+    <thead>
+      <tr><th>化学式</th><th>モル%</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button onclick="addRow()">行を追加</button>
+  <button onclick="calculateElementRatios()">計算</button>
+
+  <h3>除外する元素を選択</h3>
+  <div id="excludeElementList"></div>
+
+  <h3>元素ごとの割合（正規化）</h3>
+  <table id="outputTable">
+    <thead>
+      <tr><th>元素</th><th>質量%</th><th>モル%</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="xrfJS.js"></script>
+</body>
+</html>
